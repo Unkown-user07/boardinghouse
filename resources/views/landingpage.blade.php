@@ -12,6 +12,12 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
     <style>
         * {
             margin: 0;
@@ -23,6 +29,26 @@
             font-family: 'Inter', sans-serif;
             color: #333;
             overflow-x: hidden;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #4361ee;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+        
+        .cursor.hover {
+            width: 50px;
+            height: 50px;
+            background: rgba(67, 97, 238, 0.1);
+            border-color: #ffd166;
         }
         
         /* Navbar */
@@ -37,7 +63,8 @@
         }
         
         .navbar.scrolled {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 1rem 0;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
@@ -62,11 +89,17 @@
             font-size: 1.8rem;
             color: white !important;
             letter-spacing: -0.5px;
+            transition: all 0.3s ease;
         }
         
         .navbar-brand i {
             color: #ffd166;
             margin-right: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-brand:hover i {
+            transform: rotate(360deg);
         }
         
         .nav-link {
@@ -75,13 +108,15 @@
             margin: 0 1rem;
             position: relative;
             padding: 0.5rem 0 !important;
+            transition: all 0.3s ease;
         }
         
         .nav-link::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 2px;
             background: #ffd166;
@@ -89,7 +124,7 @@
         }
         
         .nav-link:hover::after {
-            width: 100%;
+            width: 80%;
         }
         
         /* Hero Section */
@@ -113,6 +148,12 @@
             background-size: cover;
             background-position: bottom;
             opacity: 0.1;
+            animation: wave 10s ease-in-out infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
         
         .hero-content {
@@ -131,6 +172,19 @@
         .hero h1 span {
             color: #ffd166;
             display: block;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 209, 102, 0.3);
+            z-index: -1;
         }
         
         .hero p {
@@ -138,12 +192,14 @@
             margin-bottom: 2rem;
             opacity: 0.9;
             max-width: 600px;
+            animation: fadeInUp 1s ease 0.2s both;
         }
         
         .hero-buttons {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s both;
         }
         
         .btn-hero-primary {
@@ -156,6 +212,26 @@
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-hero-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-hero-primary:hover::before {
+            width: 300px;
+            height: 300px;
         }
         
         .btn-hero-primary:hover {
@@ -186,13 +262,42 @@
         .hero-image {
             position: relative;
             z-index: 2;
+            animation: float 3s ease-in-out infinite;
         }
         
         .hero-image img {
             width: 100%;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            animation: float 3s ease-in-out infinite;
+        }
+        
+        .floating-badge {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: float 3s ease-in-out infinite 1s;
+        }
+        
+        .floating-badge i {
+            color: #4361ee;
+            font-size: 1.5rem;
+        }
+        
+        .floating-badge span {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .floating-badge small {
+            color: #6c757d;
+            font-size: 0.8rem;
         }
         
         @keyframes float {
@@ -200,10 +305,45 @@
             50% { transform: translateY(-20px); }
         }
         
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         /* Features Section */
         .features {
             padding: 100px 0;
             background: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .features::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: 50%;
+        }
+        
+        .features::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 209, 102, 0.05);
+            border-radius: 50%;
         }
         
         .section-title {
@@ -233,11 +373,36 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             transition: all 0.3s;
             height: 100%;
+            position: relative;
+            overflow: hidden;
         }
         
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4361ee 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-card:hover * {
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-card:hover .feature-icon {
+            background: white;
+            color: #4361ee;
         }
         
         .feature-icon {
@@ -251,17 +416,20 @@
             margin: 0 auto 1.5rem;
             color: white;
             font-size: 2rem;
+            transition: all 0.3s;
         }
         
         .feature-card h3 {
             font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 1rem;
+            transition: color 0.3s;
         }
         
         .feature-card p {
             color: #6c757d;
             margin-bottom: 0;
+            transition: color 0.3s;
         }
         
         /* Rooms Section */
@@ -276,6 +444,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             transition: all 0.3s;
             height: 100%;
+            position: relative;
         }
         
         .room-card:hover {
@@ -310,6 +479,42 @@
             border-radius: 50px;
             font-weight: 600;
             font-size: 0.9rem;
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .room-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .room-card:hover .room-overlay {
+            opacity: 1;
+        }
+        
+        .room-overlay a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .room-overlay a:hover {
+            transform: scale(1.2);
         }
         
         .room-details {
@@ -360,6 +565,26 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-room::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-room:hover::before {
+            width: 300px;
+            height: 300px;
         }
         
         .btn-room:hover {
@@ -370,6 +595,7 @@
         .amenities {
             padding: 100px 0;
             background: #f8f9fa;
+            position: relative;
         }
         
         .amenities-grid {
@@ -387,11 +613,23 @@
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             transition: all 0.3s;
+            cursor: pointer;
         }
         
         .amenity-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.15);
+            background: linear-gradient(135deg, #4361ee 0%, #764ba2 100%);
+        }
+        
+        .amenity-item:hover .amenity-text h4,
+        .amenity-item:hover .amenity-text p {
+            color: white;
+        }
+        
+        .amenity-item:hover .amenity-icon {
+            background: white;
+            color: #4361ee;
         }
         
         .amenity-icon {
@@ -404,32 +642,62 @@
             justify-content: center;
             color: white;
             font-size: 1.5rem;
+            transition: all 0.3s;
         }
         
         .amenity-text h4 {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 0.2rem;
+            transition: color 0.3s;
         }
         
         .amenity-text p {
             color: #6c757d;
             margin-bottom: 0;
             font-size: 0.9rem;
+            transition: color 0.3s;
         }
         
-        /* Testimonials */
+        /* Testimonials Section */
         .testimonials {
             padding: 100px 0;
+            background: linear-gradient(135deg, #4361ee 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+            opacity: 0.1;
+        }
+        
+        .testimonials .section-title h2,
+        .testimonials .section-title p {
+            color: white;
         }
         
         .testimonial-card {
             background: white;
             padding: 2rem;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin: 1rem;
             position: relative;
+            transition: all 0.3s;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         
         .testimonial-card::before {
@@ -462,6 +730,7 @@
             height: 60px;
             border-radius: 50%;
             object-fit: cover;
+            border: 3px solid #ffd166;
         }
         
         .author-info h5 {
@@ -477,28 +746,36 @@
         
         /* CTA Section */
         .cta {
-            background: linear-gradient(135deg, #4361ee 0%, #764ba2 100%);
             padding: 80px 0;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, #ffd166 0%, #ffc233 100%);
         }
         
         .cta::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-            background-size: cover;
-            background-position: bottom;
-            opacity: 0.1;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+        
+        .cta::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
         }
         
         .cta-content {
             text-align: center;
-            color: white;
             position: relative;
             z-index: 2;
         }
@@ -507,11 +784,12 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
+            color: #333;
         }
         
         .cta p {
             font-size: 1.2rem;
-            opacity: 0.9;
+            color: #333;
             margin-bottom: 2rem;
             max-width: 700px;
             margin-left: auto;
@@ -519,8 +797,8 @@
         }
         
         .btn-cta {
-            background: #ffd166;
-            color: #333;
+            background: #4361ee;
+            color: white;
             padding: 1rem 3rem;
             border-radius: 50px;
             font-weight: 600;
@@ -529,10 +807,30 @@
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-cta:hover::before {
+            width: 300px;
+            height: 300px;
         }
         
         .btn-cta:hover {
-            background: #ffc233;
+            background: #3046c0;
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
@@ -567,11 +865,12 @@
         .footer-links a {
             color: #a0a0b0;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
         }
         
         .footer-links a:hover {
             color: #ffd166;
+            padding-left: 5px;
         }
         
         .social-links {
@@ -595,7 +894,7 @@
         .social-links a:hover {
             background: #ffd166;
             color: #333;
-            transform: translateY(-3px);
+            transform: translateY(-3px) rotate(360deg);
         }
         
         .footer-bottom {
@@ -604,6 +903,36 @@
             padding-top: 2rem;
             text-align: center;
             color: #a0a0b0;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #4361ee;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 99;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: #3046c0;
+            transform: translateY(-5px);
         }
         
         /* Responsive */
@@ -641,10 +970,17 @@
                 border-color: #4361ee;
                 color: #4361ee;
             }
+            
+            .cursor {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -678,7 +1014,7 @@
                 
                 <div class="d-flex gap-2">
                     <a href="/login" class="btn btn-outline-light">Login</a>
-                    <a href="/register" class="btn btn-hero-primary">Sign Up</a>
+                    <a href="/register" class="btn-hero-primary">Sign Up</a>
                 </div>
             </div>
         </div>
@@ -689,18 +1025,25 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 hero-content">
-                    <h1>
+                    <h1 data-aos="fade-up" data-aos-duration="1000">
                         Find Your Perfect
                         <span>Home Away From Home</span>
                     </h1>
-                    <p>Comfortable, affordable, and secure boarding houses for students and professionals. Your ideal living space awaits.</p>
-                    <div class="hero-buttons">
+                    <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Comfortable, affordable, and secure boarding houses for students and professionals. Your ideal living space awaits.</p>
+                    <div class="hero-buttons" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
                         <a href="#rooms" class="btn-hero-primary">View Rooms</a>
                         <a href="#contact" class="btn-hero-outline">Contact Us</a>
                     </div>
                 </div>
-                <div class="col-lg-6 hero-image">
+                <div class="col-lg-6 hero-image" data-aos="fade-left" data-aos-duration="1000">
                     <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Modern Room">
+                    <div class="floating-badge">
+                        <i class="bi bi-people"></i>
+                        <div>
+                            <span>500+</span>
+                            <small>Happy Residents</small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -709,13 +1052,13 @@
     <!-- Features Section -->
     <section class="features">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title" data-aos="fade-up">
                 <h2>Why Choose StayEase?</h2>
                 <p>We provide the best living experience with premium amenities and excellent service</p>
             </div>
             
             <div class="row g-4">
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="bi bi-shield-check"></i>
@@ -724,7 +1067,7 @@
                         <p>24/7 security with CCTV surveillance and secure access</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="bi bi-wifi"></i>
@@ -733,7 +1076,7 @@
                         <p>Fast and reliable internet connection throughout the building</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="bi bi-cup-hot"></i>
@@ -742,7 +1085,7 @@
                         <p>Spacious lounges and study areas for residents</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="bi bi-water"></i>
@@ -758,17 +1101,21 @@
     <!-- Rooms Section -->
     <section id="rooms" class="rooms">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title" data-aos="fade-up">
                 <h2>Our Rooms</h2>
                 <p>Choose from our selection of comfortable and well-furnished rooms</p>
             </div>
             
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="room-card">
                         <div class="room-image">
                             <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Standard Room">
                             <span class="room-badge">Popular</span>
+                            <div class="room-overlay">
+                                <a href="#"><i class="bi bi-heart"></i></a>
+                                <a href="#"><i class="bi bi-share"></i></a>
+                            </div>
                         </div>
                         <div class="room-details">
                             <h3>Standard Room</h3>
@@ -783,11 +1130,15 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="room-card">
                         <div class="room-image">
                             <img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Deluxe Room">
                             <span class="room-badge" style="background: #4361ee; color: white;">Best Value</span>
+                            <div class="room-overlay">
+                                <a href="#"><i class="bi bi-heart"></i></a>
+                                <a href="#"><i class="bi bi-share"></i></a>
+                            </div>
                         </div>
                         <div class="room-details">
                             <h3>Deluxe Room</h3>
@@ -802,10 +1153,14 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="room-card">
                         <div class="room-image">
                             <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Premium Room">
+                            <div class="room-overlay">
+                                <a href="#"><i class="bi bi-heart"></i></a>
+                                <a href="#"><i class="bi bi-share"></i></a>
+                            </div>
                         </div>
                         <div class="room-details">
                             <h3>Premium Room</h3>
@@ -826,13 +1181,13 @@
     <!-- Amenities Section -->
     <section id="amenities" class="amenities">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title" data-aos="fade-up">
                 <h2>Amenities & Facilities</h2>
                 <p>Everything you need for a comfortable stay</p>
             </div>
             
             <div class="amenities-grid">
-                <div class="amenity-item">
+                <div class="amenity-item" data-aos="fade-right" data-aos-delay="100">
                     <div class="amenity-icon">
                         <i class="bi bi-wifi"></i>
                     </div>
@@ -842,7 +1197,7 @@
                     </div>
                 </div>
                 
-                <div class="amenity-item">
+                <div class="amenity-item" data-aos="fade-right" data-aos-delay="150">
                     <div class="amenity-icon">
                         <i class="bi bi-camera-video"></i>
                     </div>
@@ -852,7 +1207,7 @@
                     </div>
                 </div>
                 
-                <div class="amenity-item">
+                <div class="amenity-item" data-aos="fade-right" data-aos-delay="200">
                     <div class="amenity-icon">
                         <i class="bi bi-droplet"></i>
                     </div>
@@ -862,7 +1217,7 @@
                     </div>
                 </div>
                 
-                <div class="amenity-item">
+                <div class="amenity-item" data-aos="fade-right" data-aos-delay="250">
                     <div class="amenity-icon">
                         <i class="bi bi-tshirt"></i>
                     </div>
@@ -872,7 +1227,7 @@
                     </div>
                 </div>
                 
-                <div class="amenity-item">
+                <div class="amenity-item" data-aos="fade-left" data-aos-delay="300">
                     <div class="amenity-icon">
                         <i class="bi bi-book"></i>
                     </div>
@@ -882,7 +1237,7 @@
                     </div>
                 </div>
                 
-                <div class="amenity-item">
+                <div class="amenity-item" data-aos="fade-left" data-aos-delay="350">
                     <div class="amenity-icon">
                         <i class="bi bi-cup"></i>
                     </div>
@@ -892,7 +1247,7 @@
                     </div>
                 </div>
                 
-                <div class="amenity-item">
+                <div class="amenity-item" data-aos="fade-left" data-aos-delay="400">
                     <div class="amenity-icon">
                         <i class="bi bi-car-front"></i>
                     </div>
@@ -902,7 +1257,7 @@
                     </div>
                 </div>
                 
-                <div class="amenity-item">
+                <div class="amenity-item" data-aos="fade-left" data-aos-delay="450">
                     <div class="amenity-icon">
                         <i class="bi bi-shield"></i>
                     </div>
@@ -918,13 +1273,13 @@
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title" data-aos="fade-up">
                 <h2>What Our Residents Say</h2>
                 <p>Hear from our happy residents about their experience</p>
             </div>
             
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="testimonial-card">
                         <p class="testimonial-text">"StayEase has been my home for 2 years now. The rooms are clean, the staff is friendly, and the rent is affordable. Highly recommended!"</p>
                         <div class="testimonial-author">
@@ -937,7 +1292,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="testimonial-card">
                         <p class="testimonial-text">"The location is perfect - near the university and commercial areas. The WiFi is fast and never disconnects. Great place for students!"</p>
                         <div class="testimonial-author">
@@ -950,7 +1305,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="testimonial-card">
                         <p class="testimonial-text">"I love the community here. The common areas are great for meeting people. The management is responsive to maintenance requests."</p>
                         <div class="testimonial-author">
@@ -969,7 +1324,7 @@
     <!-- CTA Section -->
     <section class="cta">
         <div class="container">
-            <div class="cta-content">
+            <div class="cta-content" data-aos="zoom-in">
                 <h2>Ready to Experience Comfortable Living?</h2>
                 <p>Join our community of students and professionals. Book your room today!</p>
                 <a href="/register" class="btn-cta">Get Started Now</a>
@@ -981,7 +1336,7 @@
     <footer id="contact" class="footer">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-4">
+                <div class="col-lg-4" data-aos="fade-right">
                     <h5>StayEase</h5>
                     <p>Your trusted boarding house partner. We provide comfortable, affordable, and secure living spaces for students and professionals.</p>
                     <div class="social-links">
@@ -992,7 +1347,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-2 col-md-4">
+                <div class="col-lg-2 col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <h5>Quick Links</h5>
                     <ul class="footer-links">
                         <li><a href="#home">Home</a></li>
@@ -1003,7 +1358,7 @@
                     </ul>
                 </div>
                 
-                <div class="col-lg-3 col-md-4">
+                <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <h5>Contact Info</h5>
                     <ul class="footer-links">
                         <li><i class="bi bi-geo-alt me-2"></i> 123 Mabini St., Makati City</li>
@@ -1013,7 +1368,7 @@
                     </ul>
                 </div>
                 
-                <div class="col-lg-3 col-md-4">
+                <div class="col-lg-3 col-md-4" data-aos="fade-left" data-aos-delay="300">
                     <h5>Newsletter</h5>
                     <p>Subscribe for updates and promotions</p>
                     <div class="input-group">
@@ -1029,17 +1384,44 @@
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
     <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
+            const backToTop = document.getElementById('backToTop');
+            
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
+            }
+            
+            // Back to top button
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
             }
         });
         
@@ -1055,6 +1437,63 @@
                     });
                 }
             });
+        });
+
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, .feature-card, .room-card, .amenity-item').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+
+        // Counter animation
+        function animateCounter(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.innerText = Math.floor(progress * (end - start) + start) + '+';
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Intersection Observer for counter
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target.querySelector('.floating-badge span');
+                    if (counter && !counter.classList.contains('animated')) {
+                        animateCounter(counter, 0, 500, 2000);
+                        counter.classList.add('animated');
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.querySelector('.hero'));
+
+        // Parallax effect on hero section
+        document.addEventListener('mousemove', (e) => {
+            const heroImage = document.querySelector('.hero-image');
+            if (heroImage) {
+                const speed = 0.05;
+                const x = (window.innerWidth / 2 - e.clientX) * speed;
+                const y = (window.innerHeight / 2 - e.clientY) * speed;
+                heroImage.style.transform = `translate(${x}px, ${y}px)`;
+            }
         });
     </script>
 </body>

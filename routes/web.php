@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::view('/', 'welcome');
-Route::view('/landingpage', 'landingpage')->name('landingpage');
+
+Route::view('/', 'landingpage')->name('landingpage');
 Route::view('/login', 'users.login')->name('login');
 Route::view('/register', 'users.register')->name('register');
 
