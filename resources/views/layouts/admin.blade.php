@@ -680,66 +680,82 @@
             </div>
             
             <div class="sidebar-nav">
-                <!-- Main Menu -->
+                <!-- Dashboard -->
                 <div class="nav-section">
-                    <div class="nav-section-title">Main</div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                                 <i class="bi bi-speedometer2"></i>
                                 <span>Dashboard</span>
+                                <span class="badge bg-primary">New</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Main Management -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Management</div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.owners') }}" class="nav-link {{ request()->routeIs('admin.owners*') ? 'active' : '' }}">
+                                <i class="bi bi-person-badge"></i>
+                                <span>Owners</span>
+                                <span class="badge bg-success">12</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('admin.rooms*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.boarding-houses') }}" class="nav-link {{ request()->routeIs('admin.boarding-houses*') ? 'active' : '' }}">
+                                <i class="bi bi-building"></i>
+                                <span>Boarding Houses</span>
+                                <span class="badge bg-info">8</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.rooms') }}" class="nav-link {{ request()->routeIs('admin.rooms*') ? 'active' : '' }}">
                                 <i class="bi bi-door-open"></i>
                                 <span>Rooms</span>
                                 <span class="badge bg-primary">24</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('admin.tenants*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.occupants') }}" class="nav-link {{ request()->routeIs('admin.occupants*') ? 'active' : '' }}">
                                 <i class="bi bi-people"></i>
-                                <span>Tenants</span>
+                                <span>Occupants</span>
                                 <span class="badge bg-success">48</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('admin.payments*') ? 'active' : '' }}">
-                                <i class="bi bi-cash-stack"></i>
-                                <span>Payments</span>
-                                <span class="badge bg-warning">12</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
-                
-                <!-- Management -->
+
+                <!-- Financial -->
                 <div class="nav-section">
-                    <div class="nav-section-title">Management</div>
+                    <div class="nav-section-title">Financial</div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('admin.maintenance*') ? 'active' : '' }}">
-                                <i class="bi bi-tools"></i>
-                                <span>Maintenance</span>
-                                <span class="badge bg-info">8</span>
+                            <a href="{{ route('admin.rentals') }}" class="nav-link {{ request()->routeIs('admin.rentals*') ? 'active' : '' }}">
+                                <i class="bi bi-calendar-check"></i>
+                                <span>Rentals</span>
+                                <span class="badge bg-warning">6 due</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('admin.leases*') ? 'active' : '' }}">
-                                <i class="bi bi-file-text"></i>
-                                <span>Leases</span>
+                            <a href="{{ route('admin.payments') }}" class="nav-link {{ request()->routeIs('admin.payments*') ? 'active' : '' }}">
+                                <i class="bi bi-cash-stack"></i>
+                                <span>Payments</span>
+                                <span class="badge bg-success">₱189k</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('admin.utilities*') ? 'active' : '' }}">
-                                <i class="bi bi-lightning"></i>
-                                <span>Utilities</span>
+                            <a href="#" class="nav-link {{ request()->routeIs('admin.reservations') ? 'active' : '' }}">
+                                <i class="bi bi-calendar-plus"></i>
+                                <span>Reservations</span>
+                                <span class="badge bg-info">5</span>
                             </a>
                         </li>
                     </ul>
                 </div>
-                
+
                 <!-- Reports -->
                 <div class="nav-section">
                     <div class="nav-section-title">Reports</div>
@@ -805,7 +821,7 @@
                         <h5 class="page-title">@yield('page_header', 'Dashboard')</h5>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                                 @yield('breadcrumb')
                             </ol>
                         </nav>
@@ -816,14 +832,14 @@
                     <!-- Search -->
                     <div class="search-box">
                         <i class="bi bi-search"></i>
-                        <input type="text" placeholder="Search..." id="globalSearch">
+                        <input type="text" placeholder="Search owners, houses, tenants..." id="globalSearch">
                     </div>
                     
                     <!-- Notifications -->
                     <div class="notifications dropdown">
                         <button class="btn" data-bs-toggle="dropdown">
                             <i class="bi bi-bell"></i>
-                            <span class="notification-badge">3</span>
+                            <span class="notification-badge">5</span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end notification-dropdown">
                             <div class="notification-header">
@@ -832,8 +848,8 @@
                             </div>
                             
                             <div class="notification-item">
-                                <div class="notification-icon bg-primary bg-opacity-10">
-                                    <i class="bi bi-cash text-primary"></i>
+                                <div class="notification-icon bg-success bg-opacity-10">
+                                    <i class="bi bi-cash text-success"></i>
                                 </div>
                                 <div class="notification-content">
                                     <div class="notification-title">New payment received</div>
@@ -843,21 +859,41 @@
                             
                             <div class="notification-item">
                                 <div class="notification-icon bg-warning bg-opacity-10">
-                                    <i class="bi bi-tools text-warning"></i>
+                                    <i class="bi bi-calendar text-warning"></i>
                                 </div>
                                 <div class="notification-content">
-                                    <div class="notification-title">Maintenance request</div>
+                                    <div class="notification-title">New reservation</div>
                                     <div class="notification-time">15 minutes ago</div>
                                 </div>
                             </div>
                             
                             <div class="notification-item">
-                                <div class="notification-icon bg-success bg-opacity-10">
-                                    <i class="bi bi-person-plus text-success"></i>
+                                <div class="notification-icon bg-info bg-opacity-10">
+                                    <i class="bi bi-person-plus text-info"></i>
                                 </div>
                                 <div class="notification-content">
-                                    <div class="notification-title">New tenant registered</div>
+                                    <div class="notification-title">New occupant moved in</div>
                                     <div class="notification-time">1 hour ago</div>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-item">
+                                <div class="notification-icon bg-primary bg-opacity-10">
+                                    <i class="bi bi-building text-primary"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title">New boarding house registered</div>
+                                    <div class="notification-time">3 hours ago</div>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-item">
+                                <div class="notification-icon bg-danger bg-opacity-10">
+                                    <i class="bi bi-exclamation-triangle text-danger"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <div class="notification-title">Payment overdue</div>
+                                    <div class="notification-time">5 hours ago</div>
                                 </div>
                             </div>
                             
@@ -879,10 +915,11 @@
                         </button>
                         
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="{#">
+                            <a class="dropdown-item" href="#">
                                 <i class="bi bi-person"></i> My Profile
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="#
+                            ">
                                 <i class="bi bi-gear"></i> Settings
                             </a>
                             <a class="dropdown-item" href="#">
@@ -909,6 +946,31 @@
                         @yield('header_actions')
                     </div>
                 </div>
+                
+                <!-- Alert Messages -->
+                @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                @endif
+
+                @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                @endif
+
+                @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    {{ $errors->first() }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                @endif
                 
                 <!-- Main Content -->
                 @yield('content')
@@ -982,6 +1044,7 @@
                 if (searchTerm.length > 2) {
                     // Implement search logic here
                     console.log('Searching for:', searchTerm);
+                    showToast('info', 'Searching: ' + searchTerm);
                 }
             });
             
@@ -1072,6 +1135,45 @@
                 showToast('error', 'An error occurred. Please try again.');
             }
         });
+
+        // DataTable initialization helper
+        function initDataTable(tableId, options = {}) {
+            $(tableId).DataTable({
+                pageLength: 10,
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    lengthMenu: "Show _MENU_ entries",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Prev"
+                    }
+                },
+                ...options
+            });
+        }
+
+        // Select2 initialization helper
+        function initSelect2(selector, options = {}) {
+            $(selector).select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                ...options
+            });
+        }
+
+        // Flatpickr initialization helper
+        function initDatepicker(selector, options = {}) {
+            flatpickr(selector, {
+                dateFormat: "Y-m-d",
+                allowInput: true,
+                ...options
+            });
+        }
     </script>
     
     <!-- Page Specific Scripts -->

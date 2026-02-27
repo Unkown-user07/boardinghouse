@@ -2,42 +2,53 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::view('/', 'welcome');
+Route::view('/landingpage', 'landingpage')->name('landingpage');
+Route::view('/login', 'users.login')->name('login');
+Route::view('/register', 'users.register')->name('register');
+
+
+/*
+|--------------------------------------------------------------------------
+| User Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('user')->group(function () {
+
+    Route::view('/dashboard', 'users.dashboard')->name('user.dashboard');
+    Route::view('/profile', 'users.profiles')->name('user.profile');
+    Route::view('/announcement', 'users.announcements')->name('user.announcements');
+    Route::view('/payments', 'users.payments')->name('user.payments');
+    Route::view('/settings', 'users.settings')->name('user.settings');
+    
+
 });
 
-Route::get('/dashboard', function () {
-    return view('users.dashboard');
-})->name('dashboard');
 
-Route::get('/profile', function () {
-    return view('users.profiles');
-})->name('profile');
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/announcement', function () {
-    return view('users.announcements');
-})->name('announcements');
+Route::prefix('admin')->group(function () {
 
-Route::get('/payments', function () {
-    return view('users.payments');
-})->name('payments');
+    Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
+    Route::view('/payments', 'admin.payments')->name('admin.payments');
+    Route::view('/occupants', 'admin.occupants')->name('admin.occupants');
+    Route::view('/register', 'admin.register')->name('admin.register');
+    Route::view('/owners', 'admin.owners')->name('admin.owners');
+    Route::view('/reservation', 'admin.reservations')->name('admin.resevations');
+    Route::view('/rooms', 'admin.rooms')->name('admin.rooms');
+    Route::view('/boarding-houses', 'admin.boardinghouses')->name('admin.boarding-houses');
+    Route::view('/rentals', 'admin.rentals')->name('admin.rentals');
+    
 
-Route::get('/settings', function () {
-    return view('users.settings');
-})->name('settings');
-
-Route::get('/landingpage', function(){
-    return view('landingpage');
-})->name('landingpage');
-
-Route::get('/login', function(){
-    return view('users.login');
-})->name('login');
-
-Route::get('/register', function(){
-    return view('users.register');
-})->name('register');
-
-Route::get('/admin-dashboard', function(){
-    return view('admin.dashboard');
-})->name('dasboard');
+});

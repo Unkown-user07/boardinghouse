@@ -693,7 +693,7 @@
 
             // Simulate login loading effect
             setTimeout(function() {
-                window.location.href = "/dashboard"; // change to your dashboard URL
+                window.location.href = "/user/dashboard"; // change to your dashboard URL
             }, 1000);
         });
 

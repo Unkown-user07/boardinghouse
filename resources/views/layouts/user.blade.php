@@ -831,19 +831,19 @@
                     <div class="nav-section-title">Main</div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <a href="{{ route('user.dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                                 <i class="bi bi-speedometer2"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('profile') }}" class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}">
+                            <a href="{{ route('user.profile') }}" class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('payments') }}" class="nav-link {{ request()->routeIs('payments*') ? 'active' : '' }}">
+                            <a href="{{ route('user.payments') }}" class="nav-link {{ request()->routeIs('payments*') ? 'active' : '' }}">
                                 <i class="bi bi-credit-card"></i>
                                 <span>Payments</span>
                                 <span class="badge bg-warning">Due in 5d</span>
@@ -890,7 +890,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('announcements') }}" class="nav-link {{ request()->routeIs('announcements') ? 'active' : '' }}">
+                            <a href="{{ route('user.announcements') }}" class="nav-link {{ request()->routeIs('announcements') ? 'active' : '' }}">
                                 <i class="bi bi-megaphone"></i>
                                 <span>Announcements</span>
                             </a>
@@ -909,7 +909,7 @@
                     <div class="nav-section-title">Settings</div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="{{ route('settings') }}" class="nav-link {{ request()->routeIs('settings') ? 'active' : '' }}">
+                            <a href="{{ route('user.settings') }}" class="nav-link {{ request()->routeIs('settings') ? 'active' : '' }}">
                                 <i class="bi bi-gear"></i>
                                 <span>Settings</span>
                             </a>
@@ -938,7 +938,7 @@
                         <h5 class="page-title">@yield('page_header', 'Dashboard')</h5>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('user.dashboard') }}">Home</a></li>
                                 @yield('breadcrumb')
                             </ol>
                         </nav>
@@ -1012,10 +1012,10 @@
                         </button>
                         
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="{{ route('profile') }}">
+                            <a class="dropdown-item" href="{{ route('user.profile') }}">
                                 <i class="bi bi-person"></i> My Profile
                             </a>
-                            <a class="dropdown-item" href="{{ route('settings') }}">
+                            <a class="dropdown-item" href="{{ route('user.settings') }}">
                                 <i class="bi bi-gear"></i> Settings
                             </a>
                             <a class="dropdown-item" href="#">
