@@ -142,12 +142,12 @@
         /* Logo */
         .logo {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
         
         .logo-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 50%;
             display: flex;
@@ -158,7 +158,7 @@
         }
         
         .logo-icon i {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: white;
         }
         
@@ -168,7 +168,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
         
         .logo p {
@@ -186,6 +186,7 @@
             color: #495057;
             margin-bottom: 0.5rem;
             display: block;
+            font-size: 0.95rem;
         }
         
         .input-group {
@@ -350,6 +351,7 @@
             color: #6c757d;
             position: relative;
             margin-bottom: 1.5rem;
+            font-size: 0.95rem;
         }
         
         .social-login p::before,
@@ -377,14 +379,14 @@
         }
         
         .social-btn {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             transition: all 0.3s;
             cursor: pointer;
             border: none;
@@ -417,6 +419,7 @@
         .signup-link p {
             color: #6c757d;
             margin-bottom: 0;
+            font-size: 0.95rem;
         }
         
         .signup-link a {
@@ -510,9 +513,9 @@
             }
             
             .social-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -563,7 +566,7 @@
             @endif
             
             <!-- Login Form -->
-            <form method="POST" action="{{ route('login') }}" id="loginForm">
+            <form method="POST" action="#" id="loginForm">
                 @csrf
                 
                 <!-- Email Field -->
@@ -616,7 +619,7 @@
                     </label>
                     
                     @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}" class="forgot-link">
+                    <a href="#" class="forgot-link">
                         Forgot Password?
                     </a>
                     @endif
@@ -647,13 +650,13 @@
             
             <!-- Sign Up Link -->
             <div class="signup-link">
-                <p>Don't have an account? <a href="#">Sign up here</a></p>
+                <p>Don't have an account? <a href="{{ route('register') }}">Sign up here</a></p>
             </div>
         </div>
         
         <!-- Back to Home -->
         <div class="back-home">
-            <a href="#">
+            <a href="{{ route('landingpage') }}">
                 <i class="bi bi-arrow-left"></i> Back to Home
             </a>
         </div>
@@ -678,29 +681,23 @@
                 toggleIcon.classList.add('bi-eye-slash');
             }
         }
+
+        
         
         // Form Loading State
-        document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+            document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+            e.preventDefault(); // prevent real form submission
+
             const button = document.getElementById('loginButton');
             button.classList.add('loading');
-        });
-        
-        // Social Login (demo)
-        function socialLogin(provider) {
-            alert(`Login with ${provider} - This would redirect to ${provider} authentication`);
-        }
-        
-        // Auto-hide alerts after 5 seconds
-        document.addEventListener('DOMContentLoaded', function() {
+
+            // Simulate login loading effect
             setTimeout(function() {
-                document.querySelectorAll('.alert').forEach(function(alert) {
-                    alert.style.transition = 'opacity 0.5s';
-                    alert.style.opacity = '0';
-                    setTimeout(() => alert.remove(), 500);
-                });
-            }, 5000);
+                window.location.href = "/dashboard"; // change to your dashboard URL
+            }, 1000);
         });
-        
+
+
         // Email validation on blur
         document.querySelector('input[name="email"]')?.addEventListener('blur', function(e) {
             const email = e.target.value;

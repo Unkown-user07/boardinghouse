@@ -16,11 +16,11 @@ Route::get('/profile', function () {
 
 Route::get('/announcement', function () {
     return view('users.announcements');
-})->name('announcement');
+})->name('announcements');
 
 Route::get('/payments', function () {
     return view('users.payments');
-})->name('payment');
+})->name('payments');
 
 Route::get('/settings', function () {
     return view('users.settings');
@@ -33,3 +33,11 @@ Route::get('/landingpage', function(){
 Route::get('/login', function(){
     return view('users.login');
 })->name('login');
+
+Route::get('/register', function(){
+    return view('users.register');
+})->name('register');
+
+Route::get('/admin-dashboard', function(){
+    return view('admin.dashboard');
+})->name('dasboard');
