@@ -857,7 +857,7 @@
                     <div class="nav-section-title">Boarding House</div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('room') ? 'active' : '' }}">
+                            <a href="{{ route('user.myroom') }}" class="nav-link {{ request()->routeIs('room') ? 'active' : '' }}">
                                 <i class="bi bi-door-open"></i>
                                 <span>My Room</span>
                             </a>

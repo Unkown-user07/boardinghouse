@@ -27,6 +27,7 @@ Route::prefix('user')->group(function () {
     Route::view('/announcement', 'users.announcements')->name('user.announcements');
     Route::view('/payments', 'users.payments')->name('user.payments');
     Route::view('/settings', 'users.settings')->name('user.settings');
+      Route::view('/myroom', 'users.myroom')->name('user.myroom');
     
 
 });
@@ -45,10 +46,12 @@ Route::prefix('admin')->group(function () {
     Route::view('/occupants', 'admin.occupants')->name('admin.occupants');
     Route::view('/register', 'admin.register')->name('admin.register');
     Route::view('/owners', 'admin.owners')->name('admin.owners');
-    Route::view('/reservation', 'admin.reservations')->name('admin.resevations');
+    Route::view('/reservation', 'admin.reservation')->name('admin.resevations');
     Route::view('/rooms', 'admin.rooms')->name('admin.rooms');
     Route::view('/boarding-houses', 'admin.boardinghouses')->name('admin.boarding-houses');
     Route::view('/rentals', 'admin.rentals')->name('admin.rentals');
+    Route::view('/prole', 'admin.profile')->name('admin.profile');
+    Route::view('user&roles', 'admin.user&roles')->name('admin.user&roles');
     
 
 });

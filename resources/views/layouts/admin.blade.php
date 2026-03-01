@@ -747,7 +747,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('admin.reservations') ? 'active' : '' }}">
+                            <a href="{{ route('admin.resevations') }}" class="nav-link {{ request()->routeIs('admin.reservations') ? 'active' : '' }}">
                                 <i class="bi bi-calendar-plus"></i>
                                 <span>Reservations</span>
                                 <span class="badge bg-info">5</span>
@@ -786,13 +786,13 @@
                     <div class="nav-section-title">Settings</div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('admin.settings.profile') ? 'active' : '' }}">
+                            <a href="{{ route('admin.profile') }}" class="nav-link {{ request()->routeIs('admin.settings.profile') ? 'active' : '' }}">
                                 <i class="bi bi-person"></i>
                                 <span>Profile</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->routeIs('admin.settings.users') ? 'active' : '' }}">
+                            <a href="{{ route('admin.user&roles') }}" class="nav-link {{ request()->routeIs('admin.settings.users') ? 'active' : '' }}">
                                 <i class="bi bi-shield-lock"></i>
                                 <span>Users & Roles</span>
                             </a>
